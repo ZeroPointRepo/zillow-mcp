@@ -583,8 +583,6 @@ Published to the official [Model Context Protocol Registry](https://registry.mod
 com.zillapi/zillow-mcp
 ```
 
-Browse it in the [official registry](https://registry.modelcontextprotocol.io/?search=zillapi) (search "zillapi" or "zillow" — we're the first result), or verify via the [registry API](https://registry.modelcontextprotocol.io/v0/servers?search=zillapi).
-
 ---
 
 ## FAQ
