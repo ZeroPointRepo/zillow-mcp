@@ -460,6 +460,25 @@ For-sale, for-rent, or sold listings inside a geographic bounding box, with opti
 
 ---
 
+## Data you get
+
+Every lookup returns the fields pros actually work with:
+
+| Field group | Examples |
+|---|---|
+| Valuation | Zestimate, rent Zestimate, tax-assessed value, last sold price |
+| Core facts | beds, baths, living area (sqft), lot size, year built, home type, status |
+| Price history | full listing/sale price timeline per property |
+| Tax history | assessed values and tax amounts by year |
+| Schools | assigned schools with ratings and distance |
+| Media | photo URLs (full resolution) |
+| Contact | listing agent/broker name and contact where published |
+| Everything else | `resoFacts` and the rest of the 300+ fields Zillow publishes per home |
+
+Coverage: 160M+ U.S. parcels, residential focus. Responses are JSON (CSV/NDJSON available on the REST API).
+
+---
+
 ## Use Cases & Prompts
 
 | Use case | Example prompt |
@@ -534,7 +553,7 @@ For-sale, for-rent, or sold listings inside a geographic bounding box, with opti
 
 ## Also available as a REST API
 
-Building an app instead of an agent? The same backend ships as a JSON REST API.
+Building an app instead of an agent? Zillapi's Zillow Data API also ships as a plain JSON REST service.
 
 |                 | MCP                    | REST API |
 | --------------- | ---------------------- | -------- |
@@ -542,7 +561,7 @@ Building an app instead of an agent? The same backend ships as a JSON REST API.
 | **Setup**       | Add a URL              | Code integration |
 | **Get started** | This README            | [Quickstart →](https://zillapi.com/quickstart/) · [API reference →](https://zillapi.com/api/properties/) · [OpenAPI 3.1 →](https://zillapi.com/openapi.json) |
 
-Base URL: `https://api.zillapi.com/v1`
+Base URL: `https://api.zillapi.com/v1` — one real estate API for property records, valuations, and listings.
 
 ---
 
@@ -572,7 +591,7 @@ com.zillapi/zillow-mcp
 Not an open one — Zillow retired its public API (ZWSID) in 2021, and official access now runs through Bridge Interactive, which is MLS-gated. Zillow MCP provides same-day, self-serve access to Zillow-sourced property data through the Model Context Protocol, with a free tier and no approval process.
 
 **What is a Zillow MCP?**
-A Zillow MCP is a Model Context Protocol server that exposes Zillow property data as tools an AI agent can call — property lookup by address or zpid, Zestimates, and listing search — so assistants like Claude, ChatGPT, and Cursor can fetch live U.S. property data mid-conversation.
+A Zillow MCP is a Model Context Protocol server that exposes Zillow property data as tools an AI agent can call — property lookup by address or zpid, Zestimates, and listing search — so assistants like Claude, ChatGPT, and Cursor can fetch live U.S. property data mid-conversation, backed by Zillapi's hosted property data API.
 
 **How do I add it to Claude Desktop, Claude Code, or ChatGPT?**
 Claude Desktop: Settings → Connectors → Add custom connector → paste `https://api.zillapi.com/mcp`. Claude Code: `claude mcp add --transport http zillapi https://api.zillapi.com/mcp --header "Authorization: Bearer zk_YOUR_KEY"`. ChatGPT: enable Developer Mode, then Settings → Connectors → Add MCP server → paste the URL and complete the OAuth prompt. See [Quick Install](#quick-install) for every client.
