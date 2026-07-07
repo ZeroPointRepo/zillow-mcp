@@ -14,7 +14,7 @@ Hosted at **`https://api.zillapi.com/mcp`** — nothing to install or run. Conne
 | Tool | What it returns | Key params |
 |---|---|---|
 | `lookup_property_by_address` | Full Zillow property record for a U.S. address — price, Zestimate, photos, schools, taxes, agent contact, price history (3 credits) | `address` (street, city, state, ZIP) |
-| `lookup_property_by_zpid` | Full property record by Zillow property id; cache-served when fresh (24 h), 1 credit on a cache miss | `zpid` |
+| `lookup_property_by_zpid` | Full property record by Zillow property id (1 credit) | `zpid` |
 | `get_zestimate` | Zillow's automated valuation (Zestimate) + rent Zestimate for a property | `zpid` |
 | `search_listings` | For-sale, for-rent, or sold listings inside a geographic bounding box, with bedroom/price filters (1 credit per result, up to 50) | `bbox` (`west,south,east,north`), `status` (`for_sale` \| `for_rent` \| `sold`), `beds_min`, `price_max` |
 
