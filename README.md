@@ -577,7 +577,7 @@ Base URL: `https://api.zillapi.com/v1` — one real estate API for property reco
 
 ## MCP Registry
 
-Registry name for the official [Model Context Protocol Registry](https://registry.modelcontextprotocol.io/):
+Published to the official [Model Context Protocol Registry](https://registry.modelcontextprotocol.io/) as:
 
 ```
 com.zillapi/zillow-mcp
