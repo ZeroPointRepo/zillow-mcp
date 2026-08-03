@@ -553,7 +553,7 @@ Coverage: 160M+ U.S. parcels, residential focus. Responses are JSON (CSV/NDJSON 
 
 ## Also available as a REST API
 
-Building an app instead of an agent? Zillapi's Zillow Data API also ships as a plain JSON REST service.
+Building an app instead of an agent? Zillapi also ships as a plain JSON REST service for Zillow property data.
 
 |                 | MCP                    | REST API |
 | --------------- | ---------------------- | -------- |
@@ -591,7 +591,7 @@ com.zillapi/zillow-mcp
 Not an open one — Zillow retired its public API (ZWSID) in 2021, and official access now runs through Bridge Interactive, which is MLS-gated. Zillow MCP provides same-day, self-serve access to Zillow-sourced property data through the Model Context Protocol, with a free tier and no approval process.
 
 **What is a Zillow MCP?**
-A Zillow MCP is a Model Context Protocol server that exposes Zillow property data as tools an AI agent can call — property lookup by address or zpid, Zestimates, and listing search — so assistants like Claude, ChatGPT, and Cursor can fetch live U.S. property data mid-conversation, backed by Zillapi's hosted property data API.
+A Zillow MCP is a Model Context Protocol server that exposes Zillow property data as tools an AI agent can call: property lookup by address or zpid, Zestimates, and listing search, so assistants like Claude, ChatGPT, and Cursor can fetch live U.S. property data mid-conversation, backed by Zillapi's hosted property data API.
 
 **How do I add it to Claude Desktop, Claude Code, or ChatGPT?**
 Claude Desktop: Settings → Connectors → Add custom connector → paste `https://api.zillapi.com/mcp`. Claude Code: `claude mcp add --transport http zillapi https://api.zillapi.com/mcp --header "Authorization: Bearer zk_YOUR_KEY"`. ChatGPT: enable Developer Mode, then Settings → Connectors → Add MCP server → paste the URL and complete the OAuth prompt. See [Quick Install](#quick-install) for every client.
