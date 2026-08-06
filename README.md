@@ -19,6 +19,10 @@
 </p>
 
 <p align="center">
+  <a href="https://glama.ai/mcp/servers/ZeroPointRepo/zillow-mcp"><img alt="Glama quality score" src="https://glama.ai/mcp/servers/ZeroPointRepo/zillow-mcp/badges/score.svg" /></a>
+</p>
+
+<p align="center">
   <a href="https://zillapi.com"><img src="https://img.shields.io/badge/Website-zillapi.com-0061FF?style=for-the-badge" alt="Website"/></a>
   <a href="https://zillapi.com/api/properties/"><img src="https://img.shields.io/badge/Docs-API_Reference-06B6D4?style=for-the-badge&logo=readthedocs&logoColor=white" alt="Docs"/></a>
   <a href="https://zillapi.com/openapi.json"><img src="https://img.shields.io/badge/OpenAPI-3.1_Spec-85EA2D?style=for-the-badge&logo=openapiinitiative&logoColor=white" alt="OpenAPI"/></a>
