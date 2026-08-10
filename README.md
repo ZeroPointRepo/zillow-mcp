@@ -45,7 +45,7 @@ Ask for comps on a subject property. Check a flip's numbers against its asking p
 **Quick taste:**
 
 ```txt
-Find 3-bed homes for sale under $600k in Greenville SC,
+Find 3-bed homes for sale under $600k in Washington DC,
 pull the full record for the most promising one,
 and check how its Zestimate compares to the asking price.
 ```
@@ -399,15 +399,15 @@ Full Zillow property record for a U.S. address — price, Zestimate, photos, sch
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| `address` | string | *required* | Full street address with city, state, and ZIP. Example: `17 Zelma Dr, Greenville, SC 29617` |
+| `address` | string | *required* | Full street address with city, state, and ZIP. Example: `1600 Pennsylvania Ave NW, Washington DC 20500` |
 
 Real response (trimmed):
 
 ```json
 {
   "data": {
-    "zpid": "11026031",
-    "address": { "streetAddress": "17 Zelma Dr", "city": "Greenville", "state": "SC", "zipcode": "29617" },
+    "zpid": "{zpid}",
+    "address": { "streetAddress": "1600 Pennsylvania Ave NW", "city": "Washington", "state": "SC", "zipcode": "20500" },
     "price": 415000,
     "zestimate": 481100,
     "rentZestimate": 2143,
@@ -426,7 +426,7 @@ Full property record by Zillow property id. **1 credit.**
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| `zpid` | string | *required* | Numeric Zillow property id, e.g. `11026031` |
+| `zpid` | string | *required* | Numeric Zillow property id, e.g. `{zpid}` |
 
 ### 3. `get_zestimate`
 
@@ -487,7 +487,7 @@ Coverage: 160M+ U.S. parcels, residential focus. Responses are JSON (CSV/NDJSON 
 
 | Use case | Example prompt |
 | --- | --- |
-| **Comps / quick CMA** | "Run comps for 17 Zelma Dr, Greenville SC — recently sold 3-beds nearby, sale price vs Zestimate, and price per sqft." |
+| **Comps / quick CMA** | "Run comps for 1600 Pennsylvania Ave NW, Washington DC — recently sold 3-beds nearby, sale price vs Zestimate, and price per sqft." |
 | **Flip / ARV check** | "This one's listed at $415k. Pull the full record and Zestimate — how much margin is there if it rehabs to the neighborhood's price per sqft?" |
 | **Rental analysis** | "Get rent Zestimates for these five addresses and rank them by gross yield against asking price." |
 | **Market scan** | "Scan for-sale homes under $500k with 3+ beds in this part of Austin — summarize price per sqft and days on market." |
@@ -532,7 +532,7 @@ Coverage: 160M+ U.S. parcels, residential focus. Responses are JSON (CSV/NDJSON 
 <details>
 <summary><b>Property not found (404)</b></summary>
 
-- For address lookups, include city, state, and ZIP (e.g. `17 Zelma Dr, Greenville, SC 29617`)
+- For address lookups, include city, state, and ZIP (e.g. `1600 Pennsylvania Ave NW, Washington DC 20500`)
 - Verify the zpid is the numeric id from a `zillow.com/homedetails/..._zpid/` URL
 - Some parcels (new construction, unlisted land) may not have a Zillow record yet
 </details>
