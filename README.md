@@ -3,12 +3,6 @@
 ![Zillapi — Zillow MCP Server](assets/zillapi-mcp.jpg)
 
 
-<p align="center">
-  <a href="https://zillapi.com">
-    <img src="public/brand/logo-512.png" width="160" height="160" alt="Zillapi" />
-  </a>
-</p>
-
 <h1 align="center">Zillow MCP Server — Property Data, Zestimates & Listings for AI Agents</h1>
 
 <p align="center">
