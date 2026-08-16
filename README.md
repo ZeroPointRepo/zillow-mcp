@@ -1,5 +1,8 @@
 <!-- mcp-name: com.zillapi/zillow-mcp -->
 
+![Zillapi — Zillow MCP Server](assets/zillapi-mcp.jpg)
+
+
 <p align="center">
   <a href="https://zillapi.com">
     <img src="public/brand/logo-512.png" width="160" height="160" alt="Zillapi" />
@@ -614,3 +617,7 @@ No. Zillapi is an independent service and is not affiliated with, endorsed by, o
 <p align="center">
   <sub>© 2026 Zero Point Studio d.o.o. · Released under the <a href="./LICENSE">MIT License</a></sub>
 </p>
+
+---
+
+[![Get started with Zillapi — 100 free credits](assets/zillapi-cta.jpg)](https://zillapi.com/signup)
