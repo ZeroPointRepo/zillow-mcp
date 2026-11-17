@@ -57,7 +57,7 @@ That single prompt uses 3 of the 4 tools, `search_listings`, `lookup_property_by
 
 > **Requirements:**
 >
-> - A Zillapi account ([sign up free](https://zillapi.com/signup), 100 credits free, no card)
+> - A Zillapi account ([sign up free](https://zillapi.com/signup/), 100 credits free, no card)
 > - An API key (`zk_...`) from your dashboard **OR** just use OAuth (Claude, ChatGPT, Hermes Agent, OpenClaw, no key handling)
 
 > **Recommended: add a rule to auto-invoke Zillow MCP**
@@ -384,7 +384,7 @@ Add the server as a hosted MCP tool with the URL `https://api.zillapi.com/mcp` a
 Two ways in, both end at the same account and credits:
 
 - **OAuth 2.1 (recommended for Claude, ChatGPT, Hermes Agent & OpenClaw):** paste the endpoint (or set `auth: oauth`) and sign in when prompted. The server implements Dynamic Client Registration, so DCR-aware clients discover everything automatically, you never touch a key.
-- **API key (`zk_...`):** for key-based clients (Cursor, VS Code, Cline, scripts). Get one free at [zillapi.com/signup](https://zillapi.com/signup) and send it as `Authorization: Bearer zk_...`.
+- **API key (`zk_...`):** for key-based clients (Cursor, VS Code, Cline, scripts). Get one free at [zillapi.com/signup](https://zillapi.com/signup/) and send it as `Authorization: Bearer zk_...`.
 
 > **Security note:** treat `zk_` keys like passwords, never commit them to a repo or paste them into shared configs. If a key leaks, revoke it in your dashboard and mint a new one.
 
@@ -505,7 +505,7 @@ Coverage: 160M+ U.S. parcels, residential focus. Responses are JSON (CSV/NDJSON 
 
 - Most calls cost **1 credit per record returned**; `lookup_property_by_address` costs **3 credits**; failed calls are **free**.
 - Top-ups from **$4 per 1,000 credits** (paid plans).
-- [View pricing](https://zillapi.com/pricing/) · [Sign up free](https://zillapi.com/signup)
+- [View pricing](https://zillapi.com/pricing/) · [Sign up free](https://zillapi.com/signup/)
 
 ---
 
@@ -608,6 +608,19 @@ Yes, that's the core workflow. Ask for recently sold homes near a subject proper
 **Is this affiliated with Zillow?**
 No. Zillapi is an independent service and is not affiliated with, endorsed by, or sponsored by Zillow Group, Inc. "Zillow" and "Zestimate" are trademarks of Zillow Group, Inc., used here descriptively to refer to those services.
 
+## Related Zillapi projects
+
+- [zillow-api](https://github.com/ZeroPointRepo/zillow-api): REST API docs and examples
+- [zillow-mcp](https://github.com/ZeroPointRepo/zillow-mcp): MCP server for Claude, ChatGPT, Cursor and Claude Code
+- [zillow-skills](https://github.com/ZeroPointRepo/zillow-skills): agent skills (one-command install)
+- [zillow-plugin](https://github.com/ZeroPointRepo/zillow-plugin): plugin for Claude Code and Cursor
+- [n8n-nodes-zillapi](https://github.com/ZeroPointRepo/n8n-nodes-zillapi): n8n community node
+- [crewai-zillapi](https://github.com/zillapi/crewai-zillapi): CrewAI tools
+- Examples: [zillapi-vercel-ai-sdk-example](https://github.com/ZeroPointRepo/zillapi-vercel-ai-sdk-example) (Vercel AI SDK), [zillapi-openai-agents-example](https://github.com/ZeroPointRepo/zillapi-openai-agents-example) (OpenAI Agents SDK)
+- Demos: [property-fair-value](https://github.com/ZeroPointRepo/property-fair-value), [property-scanner](https://github.com/ZeroPointRepo/property-scanner)
+
+Learn more: [Zillow API guide](https://zillapi.com/zillow-api/) · [For AI agents](https://zillapi.com/ai-agents/) · [Pricing](https://zillapi.com/pricing/) · [Zillow API alternatives](https://zillapi.com/alternatives/zillow-api/) · [Zillow's Claude connector vs Zillapi](https://zillapi.com/compare/zillow-claude-connector-vs-zillapi/) · [Zillow API pricing explained](https://zillapi.com/blog/zillow-api-pricing/) · [YouTube](https://www.youtube.com/@zillapi)
+
 ---
 
 <p align="center">
@@ -616,4 +629,4 @@ No. Zillapi is an independent service and is not affiliated with, endorsed by, o
 
 ---
 
-[![Get started with Zillapi, 100 free credits](assets/zillapi-cta.jpg)](https://zillapi.com/signup)
+[![Get started with Zillapi, 100 free credits](assets/zillapi-cta.jpg)](https://zillapi.com/signup/)
