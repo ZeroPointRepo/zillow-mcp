@@ -75,13 +75,15 @@ That single prompt uses 3 of the 4 tools, `search_listings`, `lookup_property_by
 
 **Zillow MCP works with Claude Desktop and Claude Web.**
 
-Settings → Connectors → **Add custom connector** → paste:
+Customize → Connectors → **+ Add** → **Add custom connector** → paste:
 
 ```
 https://api.zillapi.com/mcp
 ```
 
 Claude runs the OAuth sign-in for you, **no API key needed.**
+
+To use an API key instead, choose **No sign in** under Authentication and add the request header `Authorization: Bearer zk_YOUR_KEY_HERE`.
 
 Prefer a key, or running headless? Add to `claude_desktop_config.json` instead:
 
@@ -597,7 +599,7 @@ Not an open one, Zillow retired its public API (ZWSID) in 2021, and official acc
 A Zillow MCP is a Model Context Protocol server that exposes Zillow property data as tools an AI agent can call: property lookup by address or zpid, Zestimates, and listing search, so assistants like Claude, ChatGPT, OpenClaw, and Hermes Agent can fetch live U.S. property data mid-conversation, backed by Zillapi's hosted property data API.
 
 **How do I add it to Claude Desktop, Claude Code, or ChatGPT?**
-Claude Desktop: Settings → Connectors → Add custom connector → paste `https://api.zillapi.com/mcp`. Claude Code: `claude mcp add --transport http zillapi https://api.zillapi.com/mcp --header "Authorization: Bearer zk_YOUR_KEY"`. ChatGPT: enable Developer Mode, then Settings → Connectors → Add MCP server → paste the URL and complete the OAuth prompt. See [Quick Install](#quick-install) for every client.
+Claude Desktop: Customize → Connectors → + Add → Add custom connector → paste `https://api.zillapi.com/mcp` (to use an API key instead, choose No sign in and add an `Authorization: Bearer zk_YOUR_KEY` header). Claude Code: `claude mcp add --transport http zillapi https://api.zillapi.com/mcp --header "Authorization: Bearer zk_YOUR_KEY"`. ChatGPT: enable Developer Mode, then Settings → Connectors → Add MCP server → paste the URL and complete the OAuth prompt. See [Quick Install](#quick-install) for every client.
 
 **Can it run comps or a quick CMA?**
 Yes, that's the core workflow. Ask for recently sold homes near a subject property, then compare sale prices, Zestimates, and price per sqft. Agents use it for quick CMAs; investors run the same flow for flip margins and rental yield checks.
