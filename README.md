@@ -26,7 +26,7 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-4CAF50?style=for-the-badge" alt="MIT License"/></a>
 </p>
 
-> **160M+ U.S. properties · 300+ fields per home · hosted REST + MCP · free tier, no card**
+> **160M+ U.S. properties · 200+ fields per home · hosted REST + MCP · free tier, no card**
 > [Zillapi](https://zillapi.com) is an independent service for Zillow-sourced data, not affiliated with Zillow.
 
 **Not Zillow's own connector.** Zillow's Claude connector is built for searching listings in chat. This independent MCP server is built for professional work: sale-price and tax history, schools, listing agent contact, every unit in a building, bulk jobs and webhooks. The same API key works in Claude, ChatGPT, Claude Code, Cursor, n8n and your own code. [See the comparison](https://zillapi.com/compare/zillow-claude-connector-vs-zillapi/)
@@ -75,13 +75,15 @@ That single prompt uses 3 of the 4 tools, `search_listings`, `lookup_property_by
 
 **Zillow MCP works with Claude Desktop and Claude Web.**
 
-Settings → Connectors → **Add custom connector** → paste:
+Customize → Connectors → **+ Add** → **Add custom connector** → paste:
 
 ```
 https://api.zillapi.com/mcp
 ```
 
 Claude runs the OAuth sign-in for you, **no API key needed.**
+
+To use an API key instead, choose **No sign in** under Authentication and add the request header `Authorization: Bearer zk_YOUR_KEY_HERE` (the Request headers option is in beta and not yet available to every Claude account).
 
 Prefer a key, or running headless? Add to `claude_desktop_config.json` instead:
 
@@ -476,7 +478,7 @@ Every lookup returns the fields pros actually work with:
 | Schools | assigned schools with ratings and distance |
 | Media | photo URLs (full resolution) |
 | Contact | listing agent/broker name and contact where published |
-| Everything else | `resoFacts` and the rest of the 300+ fields Zillow publishes per home |
+| Everything else | `resoFacts` and the rest of the 200+ fields Zillow publishes per home |
 
 Coverage: 160M+ U.S. parcels, residential focus. Responses are JSON (CSV/NDJSON available on the REST API).
 
@@ -597,7 +599,7 @@ Not an open one, Zillow retired its public API (ZWSID) in 2021, and official acc
 A Zillow MCP is a Model Context Protocol server that exposes Zillow property data as tools an AI agent can call: property lookup by address or zpid, Zestimates, and listing search, so assistants like Claude, ChatGPT, OpenClaw, and Hermes Agent can fetch live U.S. property data mid-conversation, backed by Zillapi's hosted property data API.
 
 **How do I add it to Claude Desktop, Claude Code, or ChatGPT?**
-Claude Desktop: Settings → Connectors → Add custom connector → paste `https://api.zillapi.com/mcp`. Claude Code: `claude mcp add --transport http zillapi https://api.zillapi.com/mcp --header "Authorization: Bearer zk_YOUR_KEY"`. ChatGPT: enable Developer Mode, then Settings → Connectors → Add MCP server → paste the URL and complete the OAuth prompt. See [Quick Install](#quick-install) for every client.
+Claude Desktop: Customize → Connectors → + Add → Add custom connector → paste `https://api.zillapi.com/mcp`. To use an API key instead, choose No sign in and add an `Authorization: Bearer zk_YOUR_KEY` header (the Request headers option is in beta and not yet available to every Claude account). Claude Code: `claude mcp add --transport http zillapi https://api.zillapi.com/mcp --header "Authorization: Bearer zk_YOUR_KEY"`. ChatGPT: enable Developer Mode, then Settings → Connectors → Add MCP server → paste the URL and complete the OAuth prompt. See [Quick Install](#quick-install) for every client.
 
 **Can it run comps or a quick CMA?**
 Yes, that's the core workflow. Ask for recently sold homes near a subject property, then compare sale prices, Zestimates, and price per sqft. Agents use it for quick CMAs; investors run the same flow for flip margins and rental yield checks.
