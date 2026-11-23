@@ -26,7 +26,7 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-4CAF50?style=for-the-badge" alt="MIT License"/></a>
 </p>
 
-> **160M+ U.S. properties · 200+ fields per home · hosted REST + MCP · free tier, no card**
+> **160M+ U.S. properties · 200+ fields per home · hosted REST + MCP**
 > [Zillapi](https://zillapi.com) is an independent service for Zillow-sourced data, not affiliated with Zillow.
 
 **Not Zillow's own connector.** Zillow's Claude connector is built for searching listings in chat. This independent MCP server is built for professional work: sale-price and tax history, schools, listing agent contact, every unit in a building, bulk jobs and webhooks. The same API key works in Claude, ChatGPT, Claude Code, Cursor, n8n and your own code. [See the comparison](https://zillapi.com/compare/zillow-claude-connector-vs-zillapi/)
