@@ -2,12 +2,12 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
   "name": "com.zillapi/zillow-mcp",
   "title": "Zillow MCP — Property Data, Zestimates & Listings for AI Agents",
-  "description": "Zillow MCP for AI agents: property data, Zestimates & listings, 200+ fields per home. Free tier.",
+  "description": "Zillow MCP for AI agents: property data, Zestimates & listings, 200+ fields per home.",
   "repository": {
     "url": "https://github.com/ZeroPointRepo/zillow-mcp",
     "source": "github"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "websiteUrl": "https://zillapi.com",
   "icons": [
     {
