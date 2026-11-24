@@ -1,12 +1,12 @@
 <!-- mcp-name: com.zillapi/zillow-mcp -->
 
-![Zillapi Zillow MCP Server](assets/zillapi-mcp.jpg)
+![ZillAPI Zillow MCP Server](assets/zillapi-mcp.jpg)
 
 
-<h1 align="center">Zillow MCP Server: Property Data, Zestimates & Listings for AI Agents</h1>
+<h1 align="center">ZillAPI Zillow MCP Server: Property Data, Zestimates & Listings for AI Agents</h1>
 
 <p align="center">
-  <b>Run comps, check home values, and scan listings by just asking your AI. Live Zillow data on 160M+ U.S. homes. Try for free.</b><br/>
+  <b>Run comps, check home values, and scan listings by just asking your AI. Live Zillow data on 160M+ U.S. homes from <a href="https://zillapi.com/mcp/">ZillAPI</a>, an independent service not affiliated with Zillow. Setup for every client: <a href="https://zillapi.com/mcp/">zillapi.com/mcp</a>.</b><br/>
   Four tools: property lookup by address, lookup by zpid, Zestimates, and listing search, for Claude, ChatGPT, OpenClaw, Hermes Agent, and any MCP client.
 </p>
 
