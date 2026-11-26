@@ -7,7 +7,7 @@
 
 <p align="center">
   <b>Run comps, check home values, and scan listings by just asking your AI. Live Zillow data on 160M+ U.S. homes from <a href="https://zillapi.com/mcp/">ZillAPI</a>, an independent service not affiliated with Zillow. Setup for every client: <a href="https://zillapi.com/mcp/">zillapi.com/mcp</a>.</b><br/>
-  Four tools: property lookup by address, lookup by zpid, Zestimates, and listing search, for Claude, ChatGPT, OpenClaw, Hermes Agent, and any MCP client.
+  Seven tools: property lookup by address, lookup by zpid, Zestimates, listing search, and bulk exports of full property records, for Claude, ChatGPT, OpenClaw, Hermes Agent, and any MCP client.
 </p>
 
 <p align="center">
@@ -49,7 +49,7 @@ pull the full record for the most promising one,
 and check how its Zestimate compares to the asking price.
 ```
 
-That single prompt uses 3 of the 4 tools, `search_listings`, `lookup_property_by_zpid`, `get_zestimate`, without you writing a line of code.
+That single prompt uses 3 of the 7 tools, `search_listings`, `lookup_property_by_zpid`, `get_zestimate`, without you writing a line of code.
 
 ---
 
@@ -85,21 +85,23 @@ Claude runs the OAuth sign-in for you, **no API key needed.**
 
 To use an API key instead, choose **No sign in** under Authentication and add the request header `Authorization: Bearer zk_YOUR_KEY_HERE` (the Request headers option is in beta and not yet available to every Claude account).
 
-Prefer a key, or running headless? Add to `claude_desktop_config.json` instead:
+Prefer the config file with an API key? `claude_desktop_config.json` only starts local servers, so use the [mcp-remote](https://www.npmjs.com/package/mcp-remote) bridge (needs Node.js 18 or newer):
 
 ```json
 {
   "mcpServers": {
     "zillapi": {
-      "transport": "streamable-http",
-      "url": "https://api.zillapi.com/mcp",
-      "headers": {
-        "Authorization": "Bearer zk_YOUR_KEY_HERE"
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://api.zillapi.com/mcp", "--header", "Authorization:${AUTH_HEADER}"],
+      "env": {
+        "AUTH_HEADER": "Bearer zk_YOUR_KEY_HERE"
       }
     }
   }
 }
 ```
+
+The header argument has no spaces because Claude Desktop on Windows breaks arguments that contain spaces; the space lives in the env value (mcp-remote README, v0.16.7). Fully quit and relaunch Claude Desktop after saving.
 
 </details>
 
@@ -118,17 +120,20 @@ claude mcp add --transport http zillapi https://api.zillapi.com/mcp \
 <details>
 <summary><b>Install in ChatGPT</b></summary>
 
-**Zillow MCP works with ChatGPT (Developer Mode).**
+**Zillow MCP works with ChatGPT on the web, as a custom MCP server under Plugins.** Sign-in is OAuth, **no API key needed.**
 
-1. Enable **Developer Mode**: Settings → Apps & Connectors → Advanced settings.
-2. Go to **Settings → Connectors → Add MCP server** (Create in the Connectors panel).
-3. Paste the server URL:
+1. In ChatGPT on the web, open **Plugins**, select the **+** button, then **Add custom MCP server**.
+2. Name it `ZillAPI`, paste the server URL and keep OAuth for authentication:
 
 ```
 https://api.zillapi.com/mcp
 ```
 
-4. Complete the OAuth sign-in when prompted, **no API key needed.**
+3. Tick **I understand and want to continue**, then create the plugin.
+4. Sign in to ZillAPI when prompted to approve access.
+5. In a new chat, type **@** and pick ZillAPI, then ask your question.
+
+ChatGPT renames these menus from time to time. If a label differs, look for the option to add a custom MCP server or connector.
 
 </details>
 
@@ -396,7 +401,7 @@ Two ways in, both end at the same account and credits:
 
 ### 1. `lookup_property_by_address`
 
-Full Zillow property record for a U.S. address, price, Zestimate, photos, schools, taxes, agent contact, and price history. **3 credits.**
+Full Zillow property record for a U.S. address, price, Zestimate, photos, schools, taxes, agent contact, and price history. **Up to 3 credits: 3 when a property is found, 1 when none is.**
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -463,6 +468,43 @@ For-sale, for-rent, or sold listings inside a geographic bounding box, with opti
 | `beds_min` | integer |, | Minimum bedrooms |
 | `price_max` | integer |, | Price ceiling in USD |
 
+### 5. `start_bulk_export`
+
+Starts a long-running export of full property records for a list of up to 5,000 addresses, Zillow URLs or zpids, or for up to 500 listings in a bounding box. Returns an `export_id`: poll `get_bulk_export_status`, then call `get_bulk_export_download`. **1 credit per record returned, minimum 1 credit per 500-entry part; failed parts are free.** `max_credits` is required: the export is refused before it starts if it could cost more.
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| `max_credits` | integer | *required* | The most credits this export may spend. A search is capped at this many results |
+| `addresses` | string[] |, | Full U.S. street addresses (city, state, ZIP) |
+| `urls` | string[] |, | Zillow property URLs (`https://www.zillow.com/homedetails/...`) |
+| `zpids` | string[] |, | Numeric Zillow property ids |
+| `property_status` | string | `FOR_SALE` | `FOR_SALE` \| `RECENTLY_SOLD` \| `FOR_RENT`, the listing context for list lookups |
+| `bbox` | string |, | Search instead of a list: bounding box as `west,south,east,north` decimal lat/lon |
+| `status` | string |, | Search listing status: `for_sale` \| `for_rent` \| `sold` (with `bbox`: this or `statuses`) |
+| `statuses` | string[] |, | Several listing statuses in one export, e.g. `["for_sale", "sold"]`; each home appears once, with a `listing_status` column |
+| `beds_min` | integer |, | Search: minimum bedrooms |
+| `price_max` | integer |, | Search: price ceiling in USD |
+| `max_results` | integer | `500` | Search: most listings to export, 1-500 |
+
+### 6. `get_bulk_export_status`
+
+A bulk export's state (`queued`, `running`, `done`, `partly_done`, `failed`), finished and failed parts, rows so far and credits used. **Free.**
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| `export_id` | string | *required* | The `export_id` from `start_bulk_export` |
+
+### 7. `get_bulk_export_download`
+
+A short-lived download link (valid 15 minutes) for the finished rows of a bulk export as CSV or NDJSON, plus the row count. **Free.**
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| `export_id` | string | *required* | The `export_id` from `start_bulk_export` |
+| `format` | string | `csv` | `csv` \| `ndjson` |
+
+Up to 5,000 addresses or links per export; the same exports run in the Zillow data exporter at https://zillapi.com/zillow-data-exporter/.
+
 ---
 
 ## Data you get
@@ -505,7 +547,7 @@ Coverage: 160M+ U.S. parcels, residential focus. Responses are JSON (CSV/NDJSON 
 | **Monthly** | see [zillapi.com/pricing](https://zillapi.com/pricing/) | monthly credit allowance | 200 req/min |
 | **Annual** | see [zillapi.com/pricing](https://zillapi.com/pricing/) | granted upfront, best per-credit rate | 300 req/min |
 
-- Most calls cost **1 credit per record returned**; `lookup_property_by_address` costs **3 credits**; failed calls are **free**.
+- Most calls cost **1 credit per record returned**; `lookup_property_by_address` uses up to **3 credits**. A lookup or search with no match costs 1 credit (in a batch, only if nothing matches), including a 404; other failed calls are free.
 - Top-ups from **$4 per 1,000 credits** (paid plans).
 - [View pricing](https://zillapi.com/pricing/) · [Sign up free](https://zillapi.com/signup/)
 
@@ -527,7 +569,7 @@ Coverage: 160M+ U.S. parcels, residential focus. Responses are JSON (CSV/NDJSON 
 
 - Check your credit balance in your Zillapi dashboard
 - On a paid plan, buy a top-up pack; on the free tier, upgrade at [zillapi.com/pricing](https://zillapi.com/pricing/)
-- Failed calls are never charged, a 402 means the account balance is empty, not that you were billed
+- A 402 means the account balance is empty, not that you were billed. A lookup or search with no match costs 1 credit; other failed calls are free
 </details>
 
 <details>
@@ -599,13 +641,13 @@ Not an open one, Zillow retired its public API (ZWSID) in 2021, and official acc
 A Zillow MCP is a Model Context Protocol server that exposes Zillow property data as tools an AI agent can call: property lookup by address or zpid, Zestimates, and listing search, so assistants like Claude, ChatGPT, OpenClaw, and Hermes Agent can fetch live U.S. property data mid-conversation, backed by Zillapi's hosted property data API.
 
 **How do I add it to Claude Desktop, Claude Code, or ChatGPT?**
-Claude Desktop: Customize → Connectors → + Add → Add custom connector → paste `https://api.zillapi.com/mcp`. To use an API key instead, choose No sign in and add an `Authorization: Bearer zk_YOUR_KEY` header (the Request headers option is in beta and not yet available to every Claude account). Claude Code: `claude mcp add --transport http zillapi https://api.zillapi.com/mcp --header "Authorization: Bearer zk_YOUR_KEY"`. ChatGPT: enable Developer Mode, then Settings → Connectors → Add MCP server → paste the URL and complete the OAuth prompt. See [Quick Install](#quick-install) for every client.
+Claude Desktop: Customize → Connectors → + Add → Add custom connector → paste `https://api.zillapi.com/mcp`. To use an API key instead, choose No sign in and add an `Authorization: Bearer zk_YOUR_KEY` header (the Request headers option is in beta and not yet available to every Claude account). Claude Code: `claude mcp add --transport http zillapi https://api.zillapi.com/mcp --header "Authorization: Bearer zk_YOUR_KEY"`. ChatGPT (web): open Plugins → + → Add custom MCP server → paste the URL, keep OAuth and sign in to ZillAPI. See [Quick Install](#quick-install) for every client.
 
 **Can it run comps or a quick CMA?**
 Yes, that's the core workflow. Ask for recently sold homes near a subject property, then compare sale prices, Zestimates, and price per sqft. Agents use it for quick CMAs; investors run the same flow for flip margins and rental yield checks.
 
 **How much does it cost?**
-100 free credits at signup with no card. After that it's credit-based, monthly/annual plans or top-ups from $4 per 1,000 credits. Most calls are 1 credit per record; address lookups are 3 credits; failed calls are free.
+100 free credits at signup with no card. After that it's credit-based, monthly/annual plans or top-ups from $4 per 1,000 credits. Most calls are 1 credit per record. Address lookups use up to 3 credits: 3 when a property is found, 1 when none is. A lookup or search with no match costs 1 credit; other failed calls are free.
 
 **Is this affiliated with Zillow?**
 No. Zillapi is an independent service and is not affiliated with, endorsed by, or sponsored by Zillow Group, Inc. "Zillow" and "Zestimate" are trademarks of Zillow Group, Inc., used here descriptively to refer to those services.
