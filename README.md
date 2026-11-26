@@ -465,8 +465,8 @@ For-sale, for-rent, or sold listings inside a geographic bounding box, with opti
 | --- | --- | --- | --- |
 | `bbox` | string | *required* | Bounding box as `west,south,east,north` decimal lat/lon. Example: `-83.0,34.7,-82.0,35.0` |
 | `status` | string | *required* | `for_sale` \| `for_rent` \| `sold` |
-| `beds_min` | integer |, | Minimum bedrooms |
-| `price_max` | integer |, | Price ceiling in USD |
+| `beds_min` | integer | none | Minimum bedrooms |
+| `price_max` | integer | none | Price ceiling in USD |
 
 ### 5. `start_bulk_export`
 
@@ -475,15 +475,15 @@ Starts a long-running export of full property records for a list of up to 5,000 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | `max_credits` | integer | *required* | The most credits this export may spend. A search is capped at this many results |
-| `addresses` | string[] |, | Full U.S. street addresses (city, state, ZIP) |
-| `urls` | string[] |, | Zillow property URLs (`https://www.zillow.com/homedetails/...`) |
-| `zpids` | string[] |, | Numeric Zillow property ids |
+| `addresses` | string[] | none | Full U.S. street addresses (city, state, ZIP) |
+| `urls` | string[] | none | Zillow property URLs (`https://www.zillow.com/homedetails/...`) |
+| `zpids` | string[] | none | Numeric Zillow property ids |
 | `property_status` | string | `FOR_SALE` | `FOR_SALE` \| `RECENTLY_SOLD` \| `FOR_RENT`, the listing context for list lookups |
-| `bbox` | string |, | Search instead of a list: bounding box as `west,south,east,north` decimal lat/lon |
-| `status` | string |, | Search listing status: `for_sale` \| `for_rent` \| `sold` (with `bbox`: this or `statuses`) |
-| `statuses` | string[] |, | Several listing statuses in one export, e.g. `["for_sale", "sold"]`; each home appears once, with a `listing_status` column |
-| `beds_min` | integer |, | Search: minimum bedrooms |
-| `price_max` | integer |, | Search: price ceiling in USD |
+| `bbox` | string | none | Search instead of a list: bounding box as `west,south,east,north` decimal lat/lon |
+| `status` | string | none | Search listing status: `for_sale` \| `for_rent` \| `sold` (with `bbox`: this or `statuses`) |
+| `statuses` | string[] | none | Several listing statuses in one export, e.g. `["for_sale", "sold"]`; each home appears once, with a `listing_status` column |
+| `beds_min` | integer | none | Search: minimum bedrooms |
+| `price_max` | integer | none | Search: price ceiling in USD |
 | `max_results` | integer | `500` | Search: most listings to export, 1-500 |
 
 ### 6. `get_bulk_export_status`
@@ -548,7 +548,7 @@ Coverage: 160M+ U.S. parcels, residential focus. Responses are JSON (CSV/NDJSON 
 | **Annual** | see [zillapi.com/pricing](https://zillapi.com/pricing/) | granted upfront, best per-credit rate | 300 req/min |
 
 - Most calls cost **1 credit per record returned**; `lookup_property_by_address` uses up to **3 credits**. A lookup or search with no match costs 1 credit (in a batch, only if nothing matches), including a 404; other failed calls are free.
-- Top-ups from **$4 per 1,000 credits** (paid plans).
+- Top-ups from **$3 per 1,000 credits (Annual) or $4 (Monthly)**, paid plans only.
 - [View pricing](https://zillapi.com/pricing/) · [Sign up free](https://zillapi.com/signup/)
 
 ---
@@ -647,7 +647,7 @@ Claude Desktop: Customize → Connectors → + Add → Add custom connector → 
 Yes, that's the core workflow. Ask for recently sold homes near a subject property, then compare sale prices, Zestimates, and price per sqft. Agents use it for quick CMAs; investors run the same flow for flip margins and rental yield checks.
 
 **How much does it cost?**
-100 free credits at signup with no card. After that it's credit-based, monthly/annual plans or top-ups from $4 per 1,000 credits. Most calls are 1 credit per record. Address lookups use up to 3 credits: 3 when a property is found, 1 when none is. A lookup or search with no match costs 1 credit; other failed calls are free.
+100 free credits at signup with no card. After that it's credit-based, monthly/annual plans or top-ups from $3 per 1,000 (Annual) or $4 (Monthly). Most calls are 1 credit per record. Address lookups use up to 3 credits: 3 when a property is found, 1 when none is. A lookup or search with no match costs 1 credit; other failed calls are free.
 
 **Is this affiliated with Zillow?**
 No. Zillapi is an independent service and is not affiliated with, endorsed by, or sponsored by Zillow Group, Inc. "Zillow" and "Zestimate" are trademarks of Zillow Group, Inc., used here descriptively to refer to those services.
